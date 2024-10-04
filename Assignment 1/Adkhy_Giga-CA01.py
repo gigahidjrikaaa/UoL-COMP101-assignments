@@ -10,7 +10,7 @@ ironWeight = 1.06 # iron weight in kg per meter squared
 
 ''' 
 Based on the assignment, the formula to calculate the draft of the barge is: mass/(length*breadth)
-Calculate the mass of the barge. Mass is obtained by having the surface area of the barge and multiplying it by the weight of iron.
+Mass is obtained by having the surface area of the barge and multiplying it by the weight of iron.
 There are 5 sides of the barge - 4 walls and 1 floor.
 The surface area of the barge is the sum of the surface area of the 5 sides.
 '''

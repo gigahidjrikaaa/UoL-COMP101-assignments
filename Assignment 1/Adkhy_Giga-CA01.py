@@ -29,10 +29,10 @@ print("The draft of the barge is: ", draft)
 
 """
 Test Table
-Test    |   Input Values    |   Expected Output |   Actual Output       |   Comment
-1       |   1, 1, 1         |   5.3             |   5.300000000000001   |   Error: off by 0.000000000000001
-2       |   3, 4, 5         |   1.06            |   1.06                |   Pass
-3       |   4, 5, 6         |   1.06            |   1.06                |   Pass
-4       |   5, 6, 7         |   1.06            |   1.06                |   Pass
-5       |   6, 7, 8         |   1.06            |   1.06                |   Pass
+Test    |   Input Values    |   Expected Output     |   Actual Output       |   Comment
+1       |   1, 1, 1         |   5.3                 |   5.300000000000001   |   Error: off by 0.000000000000001
+2       |   2, 3, 4         |   8.126666666666667   |   8.126666666666667   |   Pass (By a very small margin)
+3       |   4, 5, 6         |   1.06                |   1.06                |   Pass
+4       |   5, 6, 7         |   1.06                |   1.06                |   Pass
+5       |   6, 7, 8         |   1.06                |   1.06                |   Pass
 """

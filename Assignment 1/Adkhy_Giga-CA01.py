@@ -1,5 +1,5 @@
 # Adkhy_Giga-CA01.py October 2024
-# Input barge dimensions - Calculate draft of an iron barge - Echo inputs and output surface area, mass and draft
+# Input barge dimensions - Calculate draft of the iron barge - Echo inputs and output surface area, mass and draft
 
 # Input the barge dimensions
 length = float(input("Enter the length of the barge in meters: "))
@@ -11,21 +11,22 @@ ironWeight = 1.06 # iron weight in kg per meter squared
 ''' 
 Based on the assignment, the formula to calculate the draft of the barge is: mass/(length*breadth)
 Mass is obtained by having the surface area of the barge and multiplying it by the weight of iron.
-There are 5 sides of the barge - 4 walls and 1 floor.
+There are 5 sides of the barge - 4 walls and 1 floor. The walls are 2 pieces of length*height and 2 pieces of breadth*height. The floor is length*breadth.
 The surface area of the barge is the sum of the surface area of the 5 sides.
 '''
+# Calculations
 surfaceArea = (length*breadth) + 2*(length*height) + 2*(breadth*height)
 mass = surfaceArea * ironWeight
 draft = mass/(length*breadth)
 
 # Outputs
-print("The length of the barge is: ", length)
-print("The breadth of the barge is: ", breadth)
-print("The height of the barge is: ", height)
+print("\nThe length of the barge is: ", length, " meter(s).")
+print("The breadth of the barge is: ", breadth, " meter(s).")
+print("The height of the barge is: ", height, " meter(s).")
 
-print("The surface area of the barge is: ", surfaceArea)
-print("The mass of the barge is: ", mass)
-print("The draft of the barge is: ", draft)
+print("The surface area of the barge is: ", surfaceArea, " meter(s)^2.")
+print("The mass of the barge is: ", mass, " kg(s).")
+print("The draft of the barge is: ", draft, " kg(s)/meter^2.")
 
 """
 Test Table

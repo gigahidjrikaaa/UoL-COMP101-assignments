@@ -1,12 +1,14 @@
 # Adkhy_Giga 201847335  October2024 CA-02.py
-# Finding out if a rover can return to its starting point after travelling a certain time and angle
+# Finding out if a rover can return to its starting point after travelling a certain time and angle, also provide rover status.
 
 import math
 
 speed = 1.5         # Speed in m/s
 battery = 100       # Battery in percentage
 battery_usage = 2.7 # Battery usage in percentage per second
-status = ["RETURN_TRIP_POSSIBLE", "NO_RETURN_TRIP", "MID_RECHARGE_NEEDED"]       # Status of the travel
+status = ["RETURN_TRIP_POSSIBLE", "NO_RETURN_TRIP", "RECHARGE_NEEDED"]
+instructions = ["No solar recharge is needed.", "Solar recharge is needed on the way back.", "Solar recharge is needed."]
+code = 0
 
 # Inputs
 angle = float(input("Enter the angle in degrees: "))
@@ -30,23 +32,26 @@ print("The battery is at: ", battery, "%.")
 
 # Check if rover can travel the distance
 if battery < 0:
-    print("The battery is not enough to travel the distance.")
-    print("Solar recharge is needed.")
-    status = status[2]
+    print("The battery is not enough to travel the distance. Solar recharge is needed.")
+    code = 2
 else:
     if battery > estimated_battery_usage:
         print("The battery is enough to travel back to the starting point. No solar recharge is needed.")
-        status = status[0]
+        code = 0
     else:
         print("The battery is not enough to travel back to the starting point. Solar recharge is needed on the way back.")
-        status = status[1]
+        code = 1
+status = status[code]
+instructions = instructions[code]
    
-# Rover status
+# Print Rover status
 print("\n============================ ROVER STATUS ============================")
 print("Position: X:", horizontal_distance, "Y:", vertical_distance)
-print("Battery: ", battery, "%")
+print("Battery used: ", estimated_battery_usage, "%/s")
+print("Current Battery: ", battery, "%")
 print("Remaining distance until battery died: ", round(battery/battery_usage * speed, 2), "m")
-print("Status: ", status)
+print("Trip status: ", status)
+print("Instructions: ", instructions)
 print("======================================================================")
 
 '''

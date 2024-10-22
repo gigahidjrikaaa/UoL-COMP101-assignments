@@ -1,5 +1,5 @@
 # Adkhy_Giga 201847335  October2024 CA-03.py
-# Calculating the age of a cat in human years.
+# Calculating the age of a cat in human years. Choose a menu - Calculate cat age in human years - Output information
 
 print(
     "Main Menu",
@@ -18,12 +18,14 @@ references_list = "Further reading can be seen here:\n1. "
 
 if prompt == 'A' or prompt == 'a':
     age = int(input("Age in months (8, 12, 18, or 24): "))
+    human_years = age + 3
     if age == 8 or age == 12 or age == 18 or age == 24:
-        print("Age of the cat is equivalent to", age + 3, "human years.")
+        print("Age of the cat is equivalent to", human_years, "human years.")
     else:
         print(invalid_message)
 elif prompt == 'B' or prompt == 'b':
     age = int(input("Age in years (3, 4, 5, or 6): "))
+    human_years = (age - 3) * 4 + 28
     if age == 3 or age == 4 or age == 5 or age == 6:
         print("Age of the cat is equivalent to", (age - 3) * 4 + 28, "human years.")
     else:
@@ -37,3 +39,17 @@ else:
     print(invalid_message)
 
 print("Goodbye!")
+
+'''
+Test Table
+===========================================================================
+# | Inputs  |   Age     |    
+---------------------------------------------------------------------------
+1 | A, 8    | 
+2 | A, 18   | 
+3 | B, 6    | 
+4 | C       | 
+5 | B, 3    | 
+6 | X       | 
+===========================================================================
+'''

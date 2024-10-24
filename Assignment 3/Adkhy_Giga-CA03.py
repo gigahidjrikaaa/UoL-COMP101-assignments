@@ -29,7 +29,7 @@ elif prompt == 'B' or prompt == 'b':
     age = int(input("Age in years (3, 4, 5, or 6): "))
     human_years = (age - 3) * 4 + 28
     if age == 3 or age == 4 or age == 5 or age == 6:
-        print("Age of the cat is equivalent to", (age - 3) * 4 + 28, "human years.")
+        print("Age of the cat is equivalent to", human_years, "human years.")
     else:
         print(invalid_message)
 elif prompt == 'C' or prompt == 'c':

@@ -4,7 +4,9 @@
 isDone = False
 studentID = 1
 
+# Loop to input grades for each student, use isDone flag to exit loop
 while studentID <= 176 and isDone != True:
+    # Initialize variables. Put inside loop to reset for each student
     testGrade = 0
     codeGrade = 0
     rawGrade = 0
@@ -16,17 +18,16 @@ while studentID <= 176 and isDone != True:
     print("Student ID: ", studentID, "\n[ENTER EMPTY VALUES IF NO SUBMISSION/NO LATE SUBMISSION]")
     print("=====================================")
 
+    # Input validation for test grade, code grade and days late
     testGrade = input("Enter the test grade (0 - 100): ")
     if testGrade == "":
         testGrade = 0
-
     while str(testGrade).isnumeric() == False or int(testGrade) < 0 or int(testGrade) > 100:
         testGrade = input("Invalid input. Please enter an integer between 0 and 100: ")
 
     codeGrade = input("Enter the code grade (0 - 100): ")
     if codeGrade == "":
         codeGrade = 0
-
     while str(codeGrade).isnumeric() == False or int(codeGrade) < 0 or int(codeGrade) > 100:
         codeGrade = input("Invalid input. Please enter an integer between 0 and 100: ")
 
@@ -36,20 +37,26 @@ while studentID <= 176 and isDone != True:
     while str(daysLate).isnumeric() == False or int(daysLate) < 0 or int(daysLate) > 2:
         daysLate = input("Invalid input. Please enter an integer between 0 and 2: ")
     
+    # Calculate late penalty, raw grade, and final grade
     latePenalty = 5 * int(daysLate)
-    print("Late penalty: ", latePenalty, "(" + str(daysLate) + " days late)")
+    print("Late penalty: ", latePenalty * -1, "(" + str(daysLate) + " days late)")
 
     rawGrade = (int(testGrade) + int(codeGrade)) / 2
-    print("The student's raw grade is: ", rawGrade)
+    print("Student", str(studentID) + "'s raw grade: ", rawGrade)
 
     finalGrade = rawGrade - latePenalty
     
-    print("The student's final grade is: ", finalGrade)
+    print("Student", str(studentID) + "'s final grade: ", finalGrade)
     
+    # Check if user is done grading
     isDone = input("Are you done grading? (Y/N): ").upper()
     if isDone == "Y":
         isDone = True
     else:
         isDone = False
         studentID += 1
+    print()
+
+print("=====================================")
+print("Grading completed. Thank you!")
     

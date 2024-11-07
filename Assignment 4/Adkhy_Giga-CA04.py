@@ -15,18 +15,17 @@ while studentID <= 176 and isDone != True:
     print("=====================================")
 
     rawGrade = input("Enter the raw grade (0 - 100): ")
-    while rawGrade != "" and rawGrade.isnumeric() == False:
-        while rawGrade.isnumeric() == False or int(rawGrade) < 0 or int(rawGrade) > 100:
-            rawGrade = input("Invalid input. Please enter an integer between 0 and 100: ")
     if rawGrade == "":
-        rawGrade = 0    
+        rawGrade = 0
+
+    while str(rawGrade).isnumeric() == False or int(rawGrade) < 0 or int(rawGrade) > 100:
+        rawGrade = input("Invalid input. Please enter an integer between 0 and 100: ")
 
     daysLate = input("Enter the number of days late (0 - 2): ")
-    while daysLate != "" and daysLate.isnumeric() == False:
-        while daysLate.isnumeric() == False or int(daysLate) < 0 or int(daysLate) > 2:
-            daysLate = input("Invalid input. Please enter an integer between 0 and 2: ")
     if daysLate == "":
         daysLate = 0
+    while str(daysLate).isnumeric() == False or int(daysLate) < 0 or int(daysLate) > 2:
+        daysLate = input("Invalid input. Please enter an integer between 0 and 2: ")
     
     latePenalty = 5 * int(daysLate)
     print("Late penalty: ", latePenalty, "(" + str(daysLate) + " days late)")

@@ -1,4 +1,4 @@
-# Adkhy_Giga 201847335  October2024 CA-4.py
+# Adkhy_Giga Nov2024 CA-04.py
 # Grading program - inserts raw grade and days late, calculates final grade, starts with student ID 1 and goes up to 176
 
 isDone = False

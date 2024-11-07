@@ -1,6 +1,5 @@
 # Adkhy_Giga 201847335  October2024 CA-4.py
-# Grading program
-# 
+# Grading program - inserts raw grade and days late, calculates final grade, starts with student ID 1 and goes up to 176
 
 isDone = False
 studentID = 1
@@ -11,21 +10,27 @@ while studentID <= 176 and isDone != True:
     latePenalty = 0
     finalGrade = 0
 
+    print("=====================================")
     print("Student ID: ", studentID, "\n[ENTER EMPTY VALUES IF NO SUBMISSION]")
-    try:
-        rawGrade = int(input("Enter the student's raw grade (1 - 100): "))
-    except ValueError:
-        while rawGrade < 0 or rawGrade > 100 or str(rawGrade).isnumeric() == False:
-            print("Invalid input. Please enter an integer between 1 and 100.")
-            rawGrade = int(input("Enter the student's raw grade (1 - 100): "))
+    print("=====================================")
 
-    daysLate = int(input("Enter the number of days late (0 - 2): "))
-    while daysLate < 0 or daysLate > 2 or str(daysLate).isnumeric() == False:
-        print("Invalid input. Please enter an integer between 0 and 2.")
-        daysLate = int(input("Enter the number of days late (0 - 2): "))
+    rawGrade = input("Enter the raw grade (0 - 100): ")
+    while rawGrade != "" and rawGrade.isnumeric() == False:
+        while rawGrade.isnumeric() == False or int(rawGrade) < 0 or int(rawGrade) > 100:
+            rawGrade = input("Invalid input. Please enter an integer between 0 and 100: ")
+    if rawGrade == "":
+        rawGrade = 0    
+
+    daysLate = input("Enter the number of days late (0 - 2): ")
+    while daysLate != "" and daysLate.isnumeric() == False:
+        while daysLate.isnumeric() == False or int(daysLate) < 0 or int(daysLate) > 2:
+            daysLate = input("Invalid input. Please enter an integer between 0 and 2: ")
+    if daysLate == "":
+        daysLate = 0
     
-    latePenalty = 5 * daysLate
-    finalGrade = rawGrade - latePenalty
+    latePenalty = 5 * int(daysLate)
+    print("Late penalty: ", latePenalty, "(" + str(daysLate) + " days late)")
+    finalGrade = int(rawGrade) - int(latePenalty)
     
     print("The student's final grade is: ", finalGrade)
     

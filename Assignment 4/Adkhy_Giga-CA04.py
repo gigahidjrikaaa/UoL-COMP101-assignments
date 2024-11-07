@@ -45,6 +45,10 @@ while studentID <= 176 and isDone != True:
     print("Student", str(studentID) + "'s raw grade: ", rawGrade)
 
     finalGrade = rawGrade - latePenalty
+
+    # Final grade cannot be less than 0, a constraint
+    if finalGrade < 0:
+        finalGrade = 0
     
     print("Student", str(studentID) + "'s final grade: ", finalGrade)
     

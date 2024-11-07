@@ -11,7 +11,7 @@ while studentID <= 176 and isDone != True:
     finalGrade = 0
 
     print("=====================================")
-    print("Student ID: ", studentID, "\n[ENTER EMPTY VALUES IF NO SUBMISSION]")
+    print("Student ID: ", studentID, "\n[ENTER EMPTY VALUES IF NO SUBMISSION/NO LATE SUBMISSION]")
     print("=====================================")
 
     rawGrade = input("Enter the raw grade (0 - 100): ")
@@ -33,8 +33,7 @@ while studentID <= 176 and isDone != True:
     
     print("The student's final grade is: ", finalGrade)
     
-    isDone = input("Are you done grading? (Y/N): ")
-    isDone = isDone.upper()
+    isDone = input("Are you done grading? (Y/N): ").upper()
     if isDone == "Y":
         isDone = True
     else:

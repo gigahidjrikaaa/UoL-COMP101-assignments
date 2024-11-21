@@ -42,13 +42,13 @@ def getInput():
 
 def processData(length, width, freeboard_height):
     '''Function to process the dimensions and calculate the volume of the ice floe'''
-    fullHeight = 9 * freeboard_height    # Freeboard height is 1/9th of the full ice floe height
-    volume = length * width * fullHeight
-    draft = fullHeight - freeboard_height
+    full_height = 9 * freeboard_height    # Freeboard height is 1/9th of the full ice floe height
+    volume = length * width * full_height
+    draft = full_height - freeboard_height
 
-    return volume, draft
+    return volume, draft, full_height
 
-def dataOutput(length, width, freeboard_height, volume, draft):
+def dataOutput(length, width, freeboard_height, volume, draft, full_height):
     '''Function to output the volume and summary of the reading from input'''
     print("The volume of the ice floe is", volume, "m^3.")
     primeAndOddTest(volume)
@@ -61,7 +61,7 @@ def dataOutput(length, width, freeboard_height, volume, draft):
     print("Width\t\t\t: ", width, "m")
     print("Freeboard height\t: ", freeboard_height, "m")
     print("Draft\t\t\t: ", draft, "m")
-    print("Total height\t\t: ", int(freeboard_height) + int(draft), "m")
+    print("Total height\t\t: ", full_height, "m")
     print("Volume\t\t\t: ", volume, "m^3")
     print("=====================================")
     
@@ -72,11 +72,11 @@ def main():
     while True:
         print("=====================================")
         answer = input("Do you want to run the program? (Y/N): ").upper()
-        if answer == "Y":
+        if answer == "Y":       # Perform the modules
             length, width, freeboard_height = getInput()
-            volume, draft = processData(int(length), int(width), int(freeboard_height))
-            dataOutput(length, width, freeboard_height, volume, draft)
-        elif answer == "N":
+            volume, draft, full_height = processData(int(length), int(width), int(freeboard_height))
+            dataOutput(length, width, freeboard_height, volume, draft, full_height)
+        elif answer == "N":     # Exit the program with user-facing message
             print("\n=====================================")
             print("Thank you for using the Cryosat-2 Ice Floe Volume Calculator!")
             print("=====================================")

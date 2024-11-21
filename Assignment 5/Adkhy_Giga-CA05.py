@@ -6,13 +6,12 @@ def primeAndOddTest(checked_num):
     odd_status = "odd"
     prime = "prime"
     
-    # Odd Test
     # Check if number is divisible by 2 (remainder is 0). If so, it is even.
     if checked_num % 2 == 0:
         odd_status = "even"
     
     # Prime Test - Trial Division Method
-    # Check if number is 1 or less. If so, it is not prime
+    # Check if number is greater than 1. If not, it is not prime.
     if checked_num > 1:
         # Check if number is divisible by any number from 2 to sqrt(checked_num) inclusive [rounded down to nearest integer]. If not divisible then it is prime.
         for i in range(2, int(checked_num ** 0.5) + 1): 
@@ -28,7 +27,7 @@ def primeAndOddTest(checked_num):
 
 def getInput():
     '''Function to get input from user and return the values'''
-    try:
+    try:        # Exception handling for invalid input
         length = input("\nEnter the length of the ice floe: ")
         primeAndOddTest(int(length))
         width = input("Enter the width of the ice floe: ")

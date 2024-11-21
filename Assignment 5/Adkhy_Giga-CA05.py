@@ -5,8 +5,9 @@ def primeAndOddTest(checked_num):
     '''Function to check if a number is odd and prime using the trial division method (no return value)'''
     odd_status = "odd"
     prime = "prime"
+    
     # Odd Test
-    # Check if number is divisible by 2 (remainder is 0). If so, it is not odd
+    # Check if number is divisible by 2 (remainder is 0). If so, it is even.
     if checked_num % 2 == 0:
         odd_status = "even"
     
@@ -21,15 +22,14 @@ def primeAndOddTest(checked_num):
     else:
         prime = "not prime"
         
-
-    # Output the results
+    # Output the test results
     print(checked_num, "is", odd_status, "and is" , prime + ".\n")
 
 
 def getInput():
     '''Function to get input from user and return the values'''
     try:
-        length = input("Enter the length of the ice floe: ")
+        length = input("\nEnter the length of the ice floe: ")
         primeAndOddTest(int(length))
         width = input("Enter the width of the ice floe: ")
         primeAndOddTest(int(width))
@@ -90,11 +90,16 @@ if __name__ == "__main__":
 
 """
 Prime and Odd Test Table
-========================================================================================
-| Input |           Expected Output           |             Actual Output           |
-========================================================================================
-|   2   | Number is even.                     | Number is even.                     |
-|       | Number is not prime.                 | Number is not prime.                 |
-----------------------------------------------------------------------------------------
-
+============================================================================================================
+| Input |               Expected Output                 |                   Actual Output                  |
+============================================================================================================
+|   2   | 2 is even and is prime.                       | 2 is even and is prime.                          |
+|   3   | 3 is odd and is prime.                        | 3 is odd and is prime.                           |
+|   4   | 4 is even and is not prime.                   | 4 is even and is not prime.                      |
+|   10  | 10 is even and is not prime.                  | 10 is even and is not prime.                     |
+|   11  | 11 is odd and is prime.                       | 11 is odd and is prime.                          |
+|  2301 | 2301 is odd and is not prime.                 | 2301 is odd and is not prime.                    |
+| 11027 | 11027 is odd and is prime.                    | 11027 is odd and is prime.                       |
+|   0   | 0 is even and is not prime.                   | 0 is even and is not prime.                      |
+============================================================================================================
 """

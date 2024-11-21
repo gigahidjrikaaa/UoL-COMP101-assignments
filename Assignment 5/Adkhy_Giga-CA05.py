@@ -3,25 +3,28 @@
  
 def primeAndOddTest(checked_num):
     '''Function to check if a number is odd and prime using the trial division method (no return value)'''
+    odd_status = "odd"
+    prime = "prime"
     # Odd Test
     # Check if number is divisible by 2 (remainder is 0). If so, it is not odd
     if checked_num % 2 == 0:
-        print("Number is even.")
-    else:
-        print("Number is odd.")
+        odd_status = "even"
     
     # Prime Test - Trial Division Method
     # Check if number is 1 or less. If so, it is not prime
-    notPrimeMsg = "Number is not prime."
-    isPrimeMsg = "Number is prime."
-    if checked_num <= 1:
-        print(notPrimeMsg)
-    # Check if number is divisible by any number from 2 to sqrt(checked_num) [rounded down to nearest integer]
-    for i in range(2, int(checked_num ** 0.5) + 1): 
-        if checked_num % i == 0:
-            print(notPrimeMsg)    # if divisible by any of the values (remainder is 0), number is not prime. Otherwise, it is prime.
-    print(isPrimeMsg)
-    return ''
+    if checked_num > 1:
+        # Check if number is divisible by any number from 2 to sqrt(checked_num) [rounded down to nearest integer]. If not divisible then it is prime.
+        for i in range(2, int(checked_num ** 0.5) + 1): 
+            if checked_num % i == 0:
+                prime = "not prime"
+                break
+    else:
+        prime = "not prime"
+        
+
+    # Output the results
+    print(checked_num, "is", odd_status, "and is" , prime + ".\n")
+
 
 def getInput():
     '''Function to get input from user and return the values'''
@@ -38,26 +41,45 @@ def getInput():
         return getInput()   # Recursion to get input again if invalid input
 
 def processData(length, width, freeboard_height):
+    '''Function to process the dimensions and calculate the volume of the ice floe'''
     fullHeight = 9 * freeboard_height    # Freeboard height is 1/9th of the full ice floe height
     volume = length * width * fullHeight
-    print("The volume of the ice floe is: ", volume)
+    draft = fullHeight - freeboard_height
 
-    # Check if the volume is odd and prime
+    return volume, draft
+
+def dataOutput(length, width, freeboard_height, volume, draft):
+    '''Function to output the volume and summary of the reading from input'''
+    print("The volume of the ice floe is", volume, "m^3.")
     primeAndOddTest(volume)
 
-def dataOutput(draft):
-    print(draft)
+    # Output the summary
+    print("=====================================")
+    print("===== CRYOSAT-2 READING SUMMARY =====")
+    print("=====================================")
+    print("Length\t\t\t: ", length, "m")
+    print("Width\t\t\t: ", width, "m")
+    print("Freeboard height\t: ", freeboard_height, "m")
+    print("Draft\t\t\t: ", draft, "m")
+    print("Total height\t\t: ", int(freeboard_height) + int(draft), "m")
+    print("Volume\t\t\t: ", volume, "m^3")
+    print("=====================================")
+    
     return ''
 
 def main():
     print("Welcome to the Cryosat-2 Ice Floe Volume Calculator!")
     while True:
-        answer = input("Do you want to run the program? (Y/N)").upper()
+        print("=====================================")
+        answer = input("Do you want to run the program? (Y/N): ").upper()
         if answer == "Y":
             length, width, freeboard_height = getInput()
-            processData(int(length), int(width), int(freeboard_height))
+            volume, draft = processData(int(length), int(width), int(freeboard_height))
+            dataOutput(length, width, freeboard_height, volume, draft)
         elif answer == "N":
+            print("\n=====================================")
             print("Thank you for using the Cryosat-2 Ice Floe Volume Calculator!")
+            print("=====================================")
             break
         else:
             print("Invalid input. Please enter Y or N.")
@@ -71,17 +93,8 @@ Prime and Odd Test Table
 ========================================================================================
 | Input |           Expected Output           |             Actual Output           |
 ========================================================================================
-|   1   | Number is not odd.                  | Number is not odd.                  
-|       | Number is not prime.                | Number is not prime.
-----------------------------------------------------------------------------------------
-|   2   | Number is not odd.                  | Number is not odd.
-|       | Number is prime.                    | Number is prime.
-----------------------------------------------------------------------------------------
-|   3   | Number is odd.                      | Number is odd.
-|       | Number is prime.                    | Number is prime.
-----------------------------------------------------------------------------------------
-|   4   | Number is not odd.                  | Number is not odd.
-|       | Number is not prime.                | Number is not prime.
+|   2   | Number is even.                     | Number is even.                     |
+|       | Number is not prime.                 | Number is not prime.                 |
 ----------------------------------------------------------------------------------------
 
 """

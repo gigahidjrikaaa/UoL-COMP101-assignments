@@ -1,10 +1,13 @@
 # Adkhy_Giga Nov2024 CA-5.py
 # Asks the user for input from the Cryosat-2 readings - Calculate ice floe volume and check primes and odds - Output the volume and prime/odd status
  
-def primeAndOddTest(checked_num):
+def primeAndOddTest():
     '''Function to check if a number is odd and prime using the trial division method (no return value)'''
     odd_status = "odd"
     prime = "prime"
+
+    print("===== Prime Calculator =====")
+    checked_num = input("Enter any number that you want to check: ")
     
     # Check if number is divisible by 2 (remainder is 0). If so, it is even.
     if checked_num % 2 == 0:
@@ -23,17 +26,16 @@ def primeAndOddTest(checked_num):
         
     # Output the test results
     print(checked_num, "is", odd_status, "and is" , prime + ".\n")
+    print("=====================================")
 
 
 def getInput():
     '''Function to get input from user and return the values'''
+    print("Welcome to the Cryosat-2 Ice Floe Volume Calculator!")
     try:        # Exception handling for invalid input
         length = input("\nEnter the length of the ice floe: ")
-        primeAndOddTest(int(length))
         width = input("Enter the width of the ice floe: ")
-        primeAndOddTest(int(width))
         freeboard_height = input("Enter the freeboard height of the ice floe: ")
-        primeAndOddTest(int(freeboard_height))
         return length, width, freeboard_height
     except ValueError:
         print("Invalid input. Please enter an integer.")
@@ -50,7 +52,6 @@ def processData(length, width, freeboard_height):
 def dataOutput(length, width, freeboard_height, volume, draft, full_height):
     '''Function to output the volume and summary of the reading from input'''
     print("The volume of the ice floe is", volume, "m^3.")
-    primeAndOddTest(volume)
 
     # Output the summary
     print("=====================================")
@@ -67,17 +68,17 @@ def dataOutput(length, width, freeboard_height, volume, draft, full_height):
     return ''
 
 def main():
-    print("Welcome to the Cryosat-2 Ice Floe Volume Calculator!")
     while True:
         print("=====================================")
         answer = input("Do you want to run the program? (Y/N): ").upper()
         if answer == "Y":       # Perform the modules
+            primeAndOddTest()
             length, width, freeboard_height = getInput()
             volume, draft, full_height = processData(int(length), int(width), int(freeboard_height))
             dataOutput(length, width, freeboard_height, volume, draft, full_height)
         elif answer == "N":     # Exit the program with user-facing message
             print("\n=====================================")
-            print("Thank you for using the Cryosat-2 Ice Floe Volume Calculator!")
+            print("Exiting the program... Have a good day!")
             print("=====================================")
             break
         else:

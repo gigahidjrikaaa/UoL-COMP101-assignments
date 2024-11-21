@@ -7,7 +7,11 @@ def primeAndOddTest():
     prime = "prime"
 
     print("===== Prime Calculator =====")
-    checked_num = input("Enter any number that you want to check: ")
+    try:
+       checked_num = input("Enter any number that you want to check: ")
+    except ValueError:
+       print("Invalid input. Please enter an integer.")
+       return primeAndOddTest()
     
     # Check if number is divisible by 2 (remainder is 0). If so, it is even.
     if checked_num % 2 == 0:

@@ -14,7 +14,7 @@ def primeAndOddTest(checked_num):
     # Prime Test - Trial Division Method
     # Check if number is 1 or less. If so, it is not prime
     if checked_num > 1:
-        # Check if number is divisible by any number from 2 to sqrt(checked_num) [rounded down to nearest integer]. If not divisible then it is prime.
+        # Check if number is divisible by any number from 2 to sqrt(checked_num) inclusive [rounded down to nearest integer]. If not divisible then it is prime.
         for i in range(2, int(checked_num ** 0.5) + 1): 
             if checked_num % i == 0:
                 prime = "not prime"
@@ -90,16 +90,16 @@ if __name__ == "__main__":
 
 """
 Prime and Odd Test Table
-============================================================================================================
-| Input |               Expected Output                 |                   Actual Output                  |
-============================================================================================================
-|   2   | 2 is even and is prime.                       | 2 is even and is prime.                          |
-|   3   | 3 is odd and is prime.                        | 3 is odd and is prime.                           |
-|   4   | 4 is even and is not prime.                   | 4 is even and is not prime.                      |
-|   10  | 10 is even and is not prime.                  | 10 is even and is not prime.                     |
-|   11  | 11 is odd and is prime.                       | 11 is odd and is prime.                          |
-|  2301 | 2301 is odd and is not prime.                 | 2301 is odd and is not prime.                    |
-| 11027 | 11027 is odd and is prime.                    | 11027 is odd and is prime.                       |
-|   0   | 0 is even and is not prime.                   | 0 is even and is not prime.                      |
-============================================================================================================
+============================================================================================================================
+| Input |               Expected Output                 |                   Actual Output                  |    COMMENT    |
+============================================================================================================================
+|   2   | 2 is even and is prime.                       | 2 is even and is prime.                          |    OK         |
+|   3   | 3 is odd and is prime.                        | 3 is odd and is prime.                           |    OK         |
+|   4   | 4 is even and is not prime.                   | 4 is even and is not prime.                      |    OK         |
+|   10  | 10 is even and is not prime.                  | 10 is even and is not prime.                     |    OK         |
+|   11  | 11 is odd and is prime.                       | 11 is odd and is prime.                          |    OK         |
+|  2301 | 2301 is odd and is not prime.                 | 2301 is odd and is not prime.                    |    OK         |
+| 11027 | 11027 is odd and is prime.                    | 11027 is odd and is prime.                       |    OK         |
+|   0   | 0 is even and is not prime.                   | 0 is even and is not prime.                      |    OK         |
+============================================================================================================================
 """

@@ -6,12 +6,15 @@ def primeAndOddTest():
     odd_status = "odd"
     prime = "prime"
 
-    print("===== Prime Calculator =====")
+    print("\n===== Prime Calculator =====")
     try:
-       checked_num = input("Enter any number that you want to check: ")
+        checked_num = input("Enter any non-negative integer that you want to check: ")
+        if not checked_num.isdigit():
+            raise ValueError
+        checked_num = int(checked_num)
     except ValueError:
-       print("Invalid input. Please enter an integer.")
-       return primeAndOddTest()
+        print("Invalid input. Please enter an integer.")
+        return primeAndOddTest()
     
     # Check if number is divisible by 2 (remainder is 0). If so, it is even.
     if checked_num % 2 == 0:

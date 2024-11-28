@@ -12,7 +12,7 @@ def getNameLists():
 def getAlienNames(actorGivenList, actorFamilyList):
     '''
     Takes in two lists of actor names and combines them to create alien names.
-    The alien names are created by taking the first 3 letters of the family name and the first 2 letters of the given name  of each actor.
+    The alien names are created by taking the first 3 letters of the family name and the first 2 letters of the given name of each actor.
     '''
     # Initialize list to store alien names
     alien_names = []
@@ -22,6 +22,7 @@ def getAlienNames(actorGivenList, actorFamilyList):
 
     return alien_names
 
+#! Output Enhancement
 def getDirectorsName(alien_names):
     '''
     Takes in a list of alien names and returns the director's name. Director name is hidden in the alien names.

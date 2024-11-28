@@ -1,5 +1,5 @@
-# Adkhy_Giga Nov2024 CA-5.py
-# Alien name generator - No inputs needed - Lists actor names - Randomize the letters to create alien names
+# Adkhy_Giga Nov2024 CA-6.py
+# Alien name generator - No inputs needed - create alien names based on first & last names - outputs film credits
 
 def getNameLists():
     '''

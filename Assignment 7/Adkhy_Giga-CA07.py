@@ -99,13 +99,13 @@ def getRevenue(seating_map, programmes_map, price_seat_A, price_seat_B, programm
         if i < 2:
             row_revenue_no_prog[i] = sum(seating_map[i]) * price_seat_A
             revenue_seat_a_no_prog += row_revenue_no_prog[i]
-            row_revenue_prog[i] = sum(programmes_map[i]) * PROGRAMME_COST
+            row_revenue_prog[i] = row_revenue_no_prog[i] + sum(programmes_map[i]) * PROGRAMME_COST
             revenue_seat_a_prog += row_revenue_prog[i]
             seats_a_sold += sum(seating_map[i])
         else:
             row_revenue_no_prog[i] = sum(seating_map[i]) * price_seat_B
             revenue_seat_b_no_prog += row_revenue_no_prog[i]
-            row_revenue_prog[i] = sum(programmes_map[i]) * PROGRAMME_COST
+            row_revenue_prog[i] = row_revenue_no_prog[i] + sum(programmes_map[i]) * PROGRAMME_COST
             revenue_seat_b_prog += row_revenue_prog[i]
             seats_b_sold += sum(seating_map[i])
     programme_revenue += programmes_purchased * PROGRAMME_COST
@@ -119,12 +119,9 @@ def getRevenue(seating_map, programmes_map, price_seat_A, price_seat_B, programm
     print("Revenue from Seats A with Programmes: ", revenue_seat_a_prog)
     print("Revenue from Seats B without Programmes: ", revenue_seat_b_no_prog)
     print("Revenue from Seats B with Programmes: ", revenue_seat_b_prog)
-    print("Revenue from each rows without Programmes: ")
+    print("Revenue from each rows:")
     for i in range(len(row_revenue_no_prog)):
-        print("Row", i+1, ":", row_revenue_no_prog[i])
-    print("Revenue from each rows with Programmes: ")
-    for i in range(len(row_revenue_prog)):
-        print("Row", i+1, ":", row_revenue_prog[i])
+        print("Row", i+1, ":", row_revenue_no_prog[i], "\t||\t", row_revenue_prog[i])
     print("Programme Revenue: ", programme_revenue)
     print("Total revenue without Programmes: ", total_revenue_no_prog)
     print("Total revenue with Programmes: ", total_revenue_prog)

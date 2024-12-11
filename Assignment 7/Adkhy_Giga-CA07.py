@@ -38,6 +38,24 @@ def displaySeatingMap(seating_map):
         print(row)
     return
 
+def getProgrammeStatus(seating_map, booked_seats, rows=4, columns=5, booking_status='full'):
+    programmes_map = []
+    if booking_status == 'full':
+        for j in range(rows):
+            row = []
+            for i in range(columns):
+                if seating_map[j][i] == 1:
+                    row.append(random.choice([0, 1]))
+            else:
+                row.append(0)
+            programmes_map.append(row)
+        programmes_purchased = sum([sum(row) for row in programmes_map])  # Sum of all 1s in the programmes map
+    elif booking_status == 'partial':
+        programmes_map = seating_map
+        programmes_purchased = booked_seats
+    return programmes_map, programmes_purchased
+        
+
 def getSeatsStatus(rows=4, columns=5, booking_status='full'):
     '''
     Returns the number of booked seats in the theatre and the seating map, represented by 1s and 0s.
@@ -47,14 +65,16 @@ def getSeatsStatus(rows=4, columns=5, booking_status='full'):
     if booking_status == 'full':
         seating_map = [[1 for i in range(columns)] for j in range(rows)]                        # 2D list of 1s
         booked_seats = rows * columns
-        programmes_purchased = random.randint(1, booked_seats)                                  # Random number of programmes purchased
+        programmes_map, programmes_purchased = getProgrammeStatus(seating_map, booked_seats, booking_status='full')
     elif booking_status == 'partial':
         seating_map = [[random.choice([0, 1]) for i in range(columns)] for j in range(rows)]    # 2D list of 0s and 1s using random number generator
         booked_seats = sum([sum(row) for row in seating_map])                                   # Sum of all 1s in the 2D list
-        programmes_purchased = booked_seats
+        programmes_map, programmes_purchased = getProgrammeStatus(seating_map, booked_seats, booking_status='partial')
     lineSeparator()
     print("Booked Seats: ", booked_seats)
     print("Programmes Purchased: ", programmes_purchased)
+    print("Programmes Map:")
+    displaySeatingMap(programmes_map)
     displaySeatingMap(seating_map)
     return booked_seats, seating_map, programmes_purchased
 
@@ -62,15 +82,29 @@ def getRevenue(seating_map, price_seat_A, price_seat_B, programmes_purchased):
     '''
     Returns the revenue generated from the booked seats.
     '''
-    total_revenue, revenue_seat_a, revenue_seat_b, programme_revenue = 0
+    total_revenue = 0
+    revenue_seat_a = 0
+    revenue_seat_b = 0
+    programme_revenue = 0
+    row_revenue = [0, 0, 0, 0]
     for i in range(len(seating_map)):
         if i < 2:
-            revenue_seat_a += sum(seating_map[i]) * price_seat_A
+            row_revenue[i] = sum(seating_map[i]) * price_seat_A
+            revenue_seat_a += row_revenue[i]
         else:
-            revenue_seat_b += sum(seating_map[i]) * price_seat_B
+            row_revenue[i] = sum(seating_map[i]) * price_seat_B
+            revenue_seat_b += row_revenue[i]
     programme_revenue += programmes_purchased * PROGRAMME_COST
     total_revenue = revenue_seat_a + revenue_seat_b + programme_revenue
-    return total_revenue
+    
+
+    lineSeparator()
+    print("Revenue from Seat A: ", revenue_seat_a)
+    print("Revenue from Seat B: ", revenue_seat_b)
+    print("Revenue from Programmes: ", programme_revenue)
+    print("Total Revenue: ", total_revenue)
+    
+    return
 
 def main():
     production_cost, price_seat_A, price_seat_B = getInputs()
@@ -78,22 +112,10 @@ def main():
     # Full Booking Status
     full_booked_seats, full_seating_map, full_programmes_purchased = getSeatsStatus()
     full_revenue = getRevenue(full_seating_map, price_seat_A, price_seat_B, full_programmes_purchased)
-    full_break_even_point = getBreakEvenPoint(production_cost, full_revenue)
-    lineSeparator()
-    print("Full Booking Status")
-    print("Revenue: ", full_revenue)
-    print("Break-even Point: ", full_break_even_point)
-    lineSeparator()
 
     # Partial Booking Status
     partial_booked_seats, partial_seating_map, partial_programmes_purchased = getSeatsStatus(booking_status='partial')
     partial_revenue = getRevenue(partial_seating_map, price_seat_A, price_seat_B, partial_programmes_purchased)
-    partial_break_even_point = getBreakEvenPoint(production_cost, partial_revenue)
-    lineSeparator()
-    print("Partial Booking Status")
-    print("Revenue: ", partial_revenue)
-    print("Break-even Point: ", partial_break_even_point)
-    lineSeparator()
 
 if __name__ == "__main__":
     main()

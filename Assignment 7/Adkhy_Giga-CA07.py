@@ -6,7 +6,7 @@ def getBreakEvenPoint(production_cost, revenue):
     Takes in the production cost and selling price for band A and calculates the break-even point.
     '''
     break_even_point = production_cost / revenue
-    rounded_break_even_point = int(-(-break_even_point // 1))
+    rounded_break_even_point = int(-(-break_even_point // 1))   # Rounding UP to the nearest integer
     return rounded_break_even_point
 
 def getInputs():

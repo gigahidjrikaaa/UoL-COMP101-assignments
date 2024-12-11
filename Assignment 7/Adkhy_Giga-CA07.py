@@ -29,11 +29,10 @@ def getInputs():
     price_seat_B = price_seat_A / 2
     return production_cost, price_seat_A, price_seat_B
 
-def displaySeatingMap(seating_map):
+def displayMap(seating_map):
     '''
     Displays the seating map in a 2D matrix.
     '''
-    print("Seating Map:")
     for row in seating_map:
         print(row)
     return
@@ -73,49 +72,72 @@ def getSeatsStatus(rows=4, columns=5, booking_status='full'):
     lineSeparator()
     print("Booked Seats: ", booked_seats)
     print("Programmes Purchased: ", programmes_purchased)
+    print("Seating Map:")
+    displayMap(seating_map)
+    lineSeparator()
     print("Programmes Map:")
-    displaySeatingMap(programmes_map)
-    displaySeatingMap(seating_map)
-    return booked_seats, seating_map, programmes_purchased
+    displayMap(programmes_map)
+    
+    return booked_seats, seating_map, programmes_map, programmes_purchased
 
-def getRevenue(seating_map, price_seat_A, price_seat_B, programmes_purchased):
+def getRevenue(seating_map, programmes_map, price_seat_A, price_seat_B, programmes_purchased):
     '''
     Returns the revenue generated from the booked seats.
     '''
-    total_revenue = 0
-    revenue_seat_a = 0
-    revenue_seat_b = 0
+    total_revenue_no_prog = 0
+    total_revenue_prog = 0
+    revenue_seat_a_no_prog = 0
+    revenue_seat_a_prog = 0
+    revenue_seat_b_no_prog = 0
+    revenue_seat_b_prog = 0
     programme_revenue = 0
-    row_revenue = [0, 0, 0, 0]
+    seats_a_sold = 0
+    seats_b_sold = 0
+    row_revenue_no_prog = [0, 0, 0, 0]
+    row_revenue_prog = [0, 0, 0, 0]
     for i in range(len(seating_map)):
         if i < 2:
-            row_revenue[i] = sum(seating_map[i]) * price_seat_A
-            revenue_seat_a += row_revenue[i]
+            row_revenue_no_prog[i] = sum(seating_map[i]) * price_seat_A
+            revenue_seat_a_no_prog += row_revenue_no_prog[i]
+            row_revenue_prog[i] = sum(programmes_map[i]) * PROGRAMME_COST
+            revenue_seat_a_prog += row_revenue_prog[i]
+            seats_a_sold += sum(seating_map[i])
         else:
-            row_revenue[i] = sum(seating_map[i]) * price_seat_B
-            revenue_seat_b += row_revenue[i]
+            row_revenue_no_prog[i] = sum(seating_map[i]) * price_seat_B
+            revenue_seat_b_no_prog += row_revenue_no_prog[i]
+            row_revenue_prog[i] = sum(programmes_map[i]) * PROGRAMME_COST
+            revenue_seat_b_prog += row_revenue_prog[i]
+            seats_b_sold += sum(seating_map[i])
     programme_revenue += programmes_purchased * PROGRAMME_COST
-    total_revenue = revenue_seat_a + revenue_seat_b + programme_revenue
-    
+    total_revenue_no_prog = revenue_seat_a_no_prog + revenue_seat_b_no_prog
+    total_revenue_prog = revenue_seat_a_prog + revenue_seat_b_prog
 
     lineSeparator()
-    print("Revenue from Seat A: ", revenue_seat_a)
-    print("Revenue from Seat B: ", revenue_seat_b)
-    print("Revenue from Programmes: ", programme_revenue)
-    print("Total Revenue: ", total_revenue)
+    print("Revenue Breakdown:")
+    print("SEATS A:", seats_a_sold, "SEATS B:", seats_b_sold)
+    print("Revenue from Seats A without Programmes: ", revenue_seat_a_no_prog)
+    print("Revenue from Seats A with Programmes: ", revenue_seat_a_prog)
+    print("Revenue from Seats B without Programmes: ", revenue_seat_b_no_prog)
+    print("Revenue from Seats B with Programmes: ", revenue_seat_b_prog)
+    print("Revenue from each rows without Programmes: ")
+    for i in range(len(row_revenue_no_prog)):
+        print("Row", i+1, ":", row_revenue_no_prog[i])
+    print("Revenue from each rows with Programmes: ")
+    for i in range(len(row_revenue_prog)):
+        print("Row", i+1, ":", row_revenue_prog[i])
+    print("Programme Revenue: ", programme_revenue)
+    print("Total revenue without Programmes: ", total_revenue_no_prog)
+    print("Total revenue with Programmes: ", total_revenue_prog)
     
+
     return
 
 def main():
     production_cost, price_seat_A, price_seat_B = getInputs()
 
     # Full Booking Status
-    full_booked_seats, full_seating_map, full_programmes_purchased = getSeatsStatus()
-    full_revenue = getRevenue(full_seating_map, price_seat_A, price_seat_B, full_programmes_purchased)
-
-    # Partial Booking Status
-    partial_booked_seats, partial_seating_map, partial_programmes_purchased = getSeatsStatus(booking_status='partial')
-    partial_revenue = getRevenue(partial_seating_map, price_seat_A, price_seat_B, partial_programmes_purchased)
+    full_booked_seats, full_seating_map, full_programmes_map, full_programmes_purchased = getSeatsStatus()
+    full_revenue = getRevenue(full_seating_map, full_programmes_map, price_seat_A, price_seat_B, full_programmes_purchased)
 
 if __name__ == "__main__":
     main()

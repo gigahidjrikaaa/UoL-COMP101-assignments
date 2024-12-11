@@ -12,6 +12,12 @@ def lineSeparator(length=50):
     print("=" * length)
     return
 
+def printCenteredText(text, length=50):
+    '''
+    Prints centered text.
+    '''
+    print(text.center(length, " "))
+
 def getBreakEvenPoint(production_cost, revenue):
     '''
     Returns the break-even point for the theatre seating dashboard.
@@ -27,6 +33,7 @@ def getInputs():
     production_cost = int(input("Enter the production cost: "))
     price_seat_A = int(input("Enter the selling price for seat at [BAND A]: "))
     price_seat_B = price_seat_A / 2
+    print("*" * 50 + "\n")
     return production_cost, price_seat_A, price_seat_B
 
 def displayMap(seating_map):
@@ -80,6 +87,10 @@ def getSeatsStatus(rows=4, columns=5, booking_status='full'):
     
     return booked_seats, seating_map, programmes_map, programmes_purchased
 
+def printLegend():
+    print("WITHOUT PROGRAMMES\t||\tWITH PROGRAMMES")
+    lineSeparator()
+
 def getRevenue(seating_map, programmes_map, price_seat_A, price_seat_B, programmes_purchased):
     '''
     Returns the revenue generated from the booked seats.
@@ -113,20 +124,29 @@ def getRevenue(seating_map, programmes_map, price_seat_A, price_seat_B, programm
     total_revenue_prog = revenue_seat_a_prog + revenue_seat_b_prog
 
     lineSeparator()
-    print("Revenue Breakdown:")
-    print("SEATS A:", seats_a_sold, "SEATS B:", seats_b_sold)
-    print("Revenue from Seats A without Programmes: ", revenue_seat_a_no_prog)
-    print("Revenue from Seats A with Programmes: ", revenue_seat_a_prog)
-    print("Revenue from Seats B without Programmes: ", revenue_seat_b_no_prog)
-    print("Revenue from Seats B with Programmes: ", revenue_seat_b_prog)
-    print("Revenue from each rows:")
+    printCenteredText("REVENUE REPORT")
+    lineSeparator()
+    printCenteredText("SEATS SOLD")
+    printLegend()
+    print("SEATS A:", seats_a_sold, "\t\t||\tSEATS B:", seats_b_sold)
+    lineSeparator()
+    printCenteredText("SEATING REVENUE")
+    printLegend()
+    print("Seat A: ", revenue_seat_a_no_prog, "\t\t||\t", revenue_seat_a_prog)
+    print("Seat B: ", revenue_seat_b_no_prog, "\t\t||\t", revenue_seat_b_prog)
+    lineSeparator()
+    printCenteredText("ROW REVENUE")
+    printLegend()
     for i in range(len(row_revenue_no_prog)):
-        print("Row", i+1, ":", row_revenue_no_prog[i], "\t||\t", row_revenue_prog[i])
+        print("Row", i+1, ":", row_revenue_no_prog[i], "\t\t||\t", row_revenue_prog[i])
+    lineSeparator()
+    printCenteredText("PROGRAMME REVENUE")
     print("Programme Revenue: ", programme_revenue)
-    print("Total revenue without Programmes: ", total_revenue_no_prog)
-    print("Total revenue with Programmes: ", total_revenue_prog)
+    lineSeparator()
+    printCenteredText("TOTAL REVENUE")
+    printLegend()
+    print("Total Revenue: ", total_revenue_no_prog, "\t||\t", total_revenue_prog)
     
-
     return
 
 def main():

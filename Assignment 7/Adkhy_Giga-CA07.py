@@ -3,6 +3,13 @@
 
 import random
 
+def lineSeparator(length=50):
+    '''
+    Prints a line separator.
+    '''
+    print("=" * length)
+    return
+
 def getBreakEvenPoint(production_cost, revenue):
     '''
     Takes in the production cost and selling price for band A and calculates the break-even point.
@@ -24,6 +31,7 @@ def displaySeatingMap(seating_map):
     '''
     Displays the seating map in a 2D matrix.
     '''
+    print("Seating Map:")
     for row in seating_map:     # Prints each row of the 2D list on a new line
         print(row)
     return
@@ -39,8 +47,9 @@ def getSeatsFullBooked(rows=4, columns=5, status='full'):
     elif status == 'partial':
         seating_map = [[random.choice([0, 1]) for i in range(columns)] for j in range(rows)]    # 2D list of 0s and 1s using random number generator
         booked_seats = sum([sum(row) for row in seating_map])                                   # Sum of all 1s in the 2D list
+    lineSeparator()
     print("Booked Seats: ", booked_seats)
-    print("Seating Map: ", displaySeatingMap(seating_map))
+    displaySeatingMap(seating_map)
     return booked_seats, seating_map
 
 def main():
@@ -48,8 +57,9 @@ def main():
     Main function to call the other functions.
     '''
     production_cost, price_seat_A, price_seat_B = getInputs()
-    getSeatsFullBooked()
-    getSeatsFullBooked(status='partial')
+    full_booked_seats, full_seating_map = getSeatsFullBooked()
+    partial_booked_seats, partial_seating_map = getSeatsFullBooked(status='partial')
+
 
 if __name__ == "__main__":
     main()

@@ -19,7 +19,14 @@ def printCenteredText(text, length=50):
     '''
     print(text.center(length, " "))
 
-def getBreakEvenPoint(production_cost, revenue):
+def printTitle(title, length=50):
+    '''
+    Prints a title with line separator.
+    '''
+    lineSeparator()
+    printCenteredText(title, length)
+
+def getBreakEvenPoint(production_cost: int, revenue: int):
     '''
     Returns the break-even point in days (rounded up).
     '''
@@ -36,13 +43,13 @@ def getInputs():
     print("*" * 50 + "\n")
     return production_cost, price_seat_A, price_seat_B
 
-def displayMap(seating_map):
+def displayMap(seating_map: list):
     '''
     Displays the seating map in a 2D matrix of 1s and 0s.
     '''
     for row in seating_map:
         printCenteredText(str(row) + " = " + str(sum(row)) + " orders")
-    printCenteredText("Total: " + str(sum([sum(row) for row in seating_map])) + str(" orders"))
+    printCenteredText("Total: " + str(sum([sum(row) for row in seating_map])) + str(" orders"))   # Sum of all 1s in the 2D list (shorthand)
 
 def getProgrammeStatus(seating_map: list, rows=ROWS, columns=COLUMNS, booking_status='full'):
     '''
@@ -55,8 +62,8 @@ def getProgrammeStatus(seating_map: list, rows=ROWS, columns=COLUMNS, booking_st
             row = []
             for i in range(columns):
                 if seating_map[j][i] == 1:
-                    row.append(random.choice([0, 1]))  # Randomly assign 0 or 1 to each seat
-            programmes_map.append(row)
+                    row.append(random.choice([0, 1]))   # Randomly assign 0 or 1 to each seat, add to the row list
+            programmes_map.append(row)                  # Add the row list to the programmes map list
     elif booking_status == 'partial':
         programmes_map = seating_map
     programmes_purchased = sum([sum(row) for row in programmes_map])  # Sum of all 1s in the seating map
@@ -75,11 +82,9 @@ def getSeatsStatus(rows=ROWS, columns=COLUMNS, booking_status='full'):
     elif booking_status == 'partial':
         seating_map = [[random.choice([0, 1]) for i in range(columns)] for j in range(rows)]    # 2D list of 0s and 1s using random number generator                                  # Sum of all 1s in the 2D list
         programmes_map, programmes_purchased = getProgrammeStatus(seating_map, booking_status='partial')
-    lineSeparator()
-    printCenteredText("SEATING MAP")
+    printTitle("SEATING MAP")
     displayMap(seating_map)
-    lineSeparator()
-    printCenteredText("PROGRAMMES MAP")
+    printTitle("PROGRAMMES MAP")
     displayMap(programmes_map)
     
     return seating_map, programmes_map, programmes_purchased
@@ -91,7 +96,7 @@ def printLegend():
     print("WITHOUT PROGRAMMES\t||\tWITH PROGRAMMES")
     lineSeparator()
 
-def showRevenueReport(seating_map, programmes_map, price_seat_A, price_seat_B, programmes_purchased, production_cost=0):
+def showRevenueReport(seating_map: list, programmes_map: list, price_seat_A, price_seat_B, programmes_purchased, production_cost=0):
     '''
     Returns the revenue generated from the booked seats.
     '''
@@ -122,28 +127,22 @@ def showRevenueReport(seating_map, programmes_map, price_seat_A, price_seat_B, p
     break_even_prog = getBreakEvenPoint(production_cost, total_revenue_prog)
 
     # Print Revenue Report
-    lineSeparator()
-    printCenteredText("REVENUE REPORT")
-    lineSeparator()
-    printCenteredText("SEATS SOLD")
+    printTitle("REVENUE REPORT")
+    printTitle("SEATS SOLD")
     printCenteredText("TOTAL SEATS SOLD: " + str(seats_a_sold + seats_b_sold))
     print("BAND A:", seats_a_sold, "\t\t||\tBAND B:", seats_b_sold)
-    lineSeparator()
-    printCenteredText("SEATING REVENUE")
+    printTitle("SEATING REVENUE")
     printLegend()
     print("Seat A: ", revenue_seat_a_no_prog, "\t\t||\t", revenue_seat_a_prog)
     print("Seat B: ", revenue_seat_b_no_prog, "\t\t||\t", revenue_seat_b_prog)
-    lineSeparator()
-    printCenteredText("ROW REVENUE")
+    printTitle("ROW REVENUE")
     printLegend()
     for i in range(len(row_revenue_no_prog)):
         print("Row", i+1, ":", row_revenue_no_prog[i], "\t\t||\t", row_revenue_prog[i])
-    lineSeparator()
-    printCenteredText("PROGRAMME REVENUE")
+    printTitle("PROGRAMME REVENUE")
     printCenteredText("Programmes Purchased: " + str(programmes_purchased))
     printCenteredText("Programme Revenue: " + str(programme_revenue))
-    lineSeparator()
-    printCenteredText("TOTAL REVENUE")
+    printTitle("TOTAL REVENUE & BREAK-EVEN POINT")
     printLegend()
     print("Total Revenue: ", total_revenue_no_prog, "\t||\t", total_revenue_prog)
     print("Break-even: ", break_even_no_prog, " days\t||\t", break_even_prog, " days")
@@ -152,15 +151,13 @@ def main():
     production_cost, price_seat_A, price_seat_B = getInputs()
 
     # Full Booking Status
-    lineSeparator()
-    printCenteredText("FULL BOOKING STATUS")
+    printTitle("FULL BOOKING STATUS")
     full_seating_map, full_programmes_map, full_programmes_purchased = getSeatsStatus()
     showRevenueReport(full_seating_map, full_programmes_map, price_seat_A, price_seat_B, full_programmes_purchased, production_cost)
 
     # Partial Booking Status
     print()
-    lineSeparator()
-    printCenteredText("PARTIAL BOOKING STATUS")
+    printTitle("PARTIAL BOOKING STATUS")
     partial_seating_map, partial_programmes_map, partial_programmes_purchased = getSeatsStatus(booking_status='partial')
     showRevenueReport(partial_seating_map, partial_programmes_map, price_seat_A, price_seat_B, partial_programmes_purchased, production_cost)
 

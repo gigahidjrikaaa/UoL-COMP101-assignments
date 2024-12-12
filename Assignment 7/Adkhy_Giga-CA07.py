@@ -160,13 +160,13 @@ def main():
     production_cost, price_seat_A, price_seat_B = getInputs()
 
     # Full Booking Status
-    printTitle("FULL BOOKING STATUS")
+    printTitle("FULL BOOKING")
     full_seating_map, full_programmes_map, full_programmes_purchased = getSeatsStatus(price_seat_A, price_seat_B, booking_status='full')
     showRevenueReport(full_seating_map, full_programmes_map, price_seat_A, price_seat_B, full_programmes_purchased, production_cost)
 
     # Partial Booking Status
     print()
-    printTitle("PARTIAL BOOKING STATUS")
+    printTitle("PARTIAL BOOKING")
     partial_seating_map, partial_programmes_map, partial_programmes_purchased = getSeatsStatus(price_seat_A, price_seat_B, booking_status='partial')
     showRevenueReport(partial_seating_map, partial_programmes_map, price_seat_A, price_seat_B, partial_programmes_purchased, production_cost)
 

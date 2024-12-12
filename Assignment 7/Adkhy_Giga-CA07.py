@@ -78,7 +78,6 @@ def getProgrammeStatus(seating_map: list, rows=ROWS, columns=COLUMNS, booking_st
     programmes_purchased = sum([sum(row) for row in programmes_map])  # Sum of all 1s in the seating map
     return programmes_map, programmes_purchased
         
-
 def getSeatsStatus(rows=ROWS, columns=COLUMNS, booking_status='full'):
     '''
     Returns the number of booked seats in the theatre and the seating map, represented by 1s and 0s.

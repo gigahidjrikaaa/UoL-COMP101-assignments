@@ -40,9 +40,9 @@ def displayMap(seating_map: list, price_a=0, price_b=0):
     '''
     for i, row in enumerate(seating_map):        # Print the row, total orders, and revenue generated for each row
         if i < 2:   # First two rows (Band A)
-            printCenteredText(str(row) + " = " + str(sum(row)) + " orders [£" + "{:.2f}".format(sum(row) * price_a) + "]")  
+            printCenteredText("(A" + str(i+1) + ") " + str(row) + " = " + str(sum(row)) + " orders [£" + "{:.2f}".format(sum(row) * price_a) + "]")  
         else:       # Last two rows (Band B)
-            printCenteredText(str(row) + " = " + str(sum(row)) + " orders [£" + "{:.2f}".format(sum(row) * price_b) + "]")
+            printCenteredText("(B" + str(i-1) + ") " + str(row) + " = " + str(sum(row)) + " orders [£" + "{:.2f}".format(sum(row) * price_b) + "]")
     printCenteredText("Total: " + str(sum([sum(row) for row in seating_map])) + str(" orders"))   # Sum of all 1s in the 2D list
 
 def getBreakEvenPoint(production_cost: int, revenue: int):

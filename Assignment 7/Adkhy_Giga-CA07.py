@@ -106,7 +106,8 @@ def showRevenueReport(seating_map: list, programmes_map: list, price_seat_A, pri
     revenue_seat_a_no_prog = revenue_seat_a_prog = 0
     revenue_seat_b_no_prog = revenue_seat_b_prog = 0
     seats_a_sold = seats_b_sold = 0
-    row_revenue_no_prog = row_revenue_prog = [0] * ROWS
+    row_revenue_no_prog = [0] * ROWS
+    row_revenue_prog = [0] * ROWS
     programme_revenue = 0
 
     # Calculate revenue for each row
@@ -114,7 +115,7 @@ def showRevenueReport(seating_map: list, programmes_map: list, price_seat_A, pri
         if i < 2:   # Band A (Rows 1 & 2)
             row_revenue_no_prog[i] = sum(seating_map[i]) * price_seat_A 
             revenue_seat_a_no_prog += row_revenue_no_prog[i]    
-            row_revenue_prog[i] = row_revenue_no_prog[i] + sum(programmes_map[i]) * PROGRAMME_COST  
+            row_revenue_prog[i] = row_revenue_no_prog[i] + sum(programmes_map[i]) * PROGRAMME_COST 
             revenue_seat_a_prog += row_revenue_prog[i]
             seats_a_sold += sum(seating_map[i]) 
         else:       # Band B (Rows 3 & 4)

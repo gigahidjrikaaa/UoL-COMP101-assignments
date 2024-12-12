@@ -34,13 +34,16 @@ def printLegend():
     print("WITHOUT PROGRAMMES\t||\tWITH PROGRAMMES")
     lineSeparator()
 
-def displayMap(seating_map: list):
+def displayMap(seating_map: list, price_a=0, price_b=0):
     '''
     Displays the seating map in a 2D matrix of 1s and 0s.
     '''
-    for row in seating_map:
-        printCenteredText(str(row) + " = " + str(sum(row)) + " orders")
-    printCenteredText("Total: " + str(sum([sum(row) for row in seating_map])) + str(" orders"))   # Sum of all 1s in the 2D list (shorthand)
+    for i, row in enumerate(seating_map):        # Print the row, total orders, and revenue generated for each row
+        if i < 2:   # First two rows (Band A)
+            printCenteredText(str(row) + " = " + str(sum(row)) + " orders [£" + "{:.2f}".format(sum(row) * price_a) + "]")  
+        else:       # Last two rows (Band B)
+            printCenteredText(str(row) + " = " + str(sum(row)) + " orders [£" + "{:.2f}".format(sum(row) * price_b) + "]")
+    printCenteredText("Total: " + str(sum([sum(row) for row in seating_map])) + str(" orders"))   # Sum of all 1s in the 2D list
 
 def getBreakEvenPoint(production_cost: int, revenue: int):
     '''
@@ -78,7 +81,7 @@ def getProgrammeStatus(seating_map: list, rows=ROWS, columns=COLUMNS, booking_st
     programmes_purchased = sum([sum(row) for row in programmes_map])  # Sum of all 1s in the seating map
     return programmes_map, programmes_purchased
         
-def getSeatsStatus(rows=ROWS, columns=COLUMNS, booking_status='full'):
+def getSeatsStatus(price_a, price_b, rows=ROWS, columns=COLUMNS, booking_status='full'):
     '''
     Returns the number of booked seats in the theatre and the seating map, represented by 1s and 0s.
     Partially booked seating map uses a random number generator to book seats.
@@ -92,9 +95,9 @@ def getSeatsStatus(rows=ROWS, columns=COLUMNS, booking_status='full'):
         programmes_map, programmes_purchased = getProgrammeStatus(seating_map, booking_status='partial')
     
     printTitle("SEATING MAP")
-    displayMap(seating_map)
+    displayMap(seating_map, price_a, price_b)
     printTitle("PROGRAMMES MAP")
-    displayMap(programmes_map)
+    displayMap(programmes_map, PROGRAMME_COST, PROGRAMME_COST)
     
     return seating_map, programmes_map, programmes_purchased
 
@@ -158,13 +161,13 @@ def main():
 
     # Full Booking Status
     printTitle("FULL BOOKING STATUS")
-    full_seating_map, full_programmes_map, full_programmes_purchased = getSeatsStatus()
+    full_seating_map, full_programmes_map, full_programmes_purchased = getSeatsStatus(price_seat_A, price_seat_B, booking_status='full')
     showRevenueReport(full_seating_map, full_programmes_map, price_seat_A, price_seat_B, full_programmes_purchased, production_cost)
 
     # Partial Booking Status
     print()
     printTitle("PARTIAL BOOKING STATUS")
-    partial_seating_map, partial_programmes_map, partial_programmes_purchased = getSeatsStatus(booking_status='partial')
+    partial_seating_map, partial_programmes_map, partial_programmes_purchased = getSeatsStatus(price_seat_A, price_seat_B, booking_status='partial')
     showRevenueReport(partial_seating_map, partial_programmes_map, price_seat_A, price_seat_B, partial_programmes_purchased, production_cost)
 
 if __name__ == "__main__":

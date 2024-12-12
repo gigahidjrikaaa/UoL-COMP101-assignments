@@ -4,6 +4,8 @@
 import random
 
 PROGRAMME_COST = 10
+ROWS = 4
+COLUMNS = 5
 
 def lineSeparator(length=50):
     '''
@@ -45,6 +47,10 @@ def displayMap(seating_map):
     return
 
 def getProgrammeStatus(seating_map, booked_seats, rows=4, columns=5, booking_status='full'):
+    '''
+    Returns the number of extra programmes purchased and the programmes map, represented by 1s and 0s.
+    Full booking status uses a random number generator for programmes purchase, while partial booking status uses the seating map.
+    '''
     programmes_map = []
     if booking_status == 'full':
         for j in range(rows):
@@ -77,8 +83,6 @@ def getSeatsStatus(rows=4, columns=5, booking_status='full'):
         booked_seats = sum([sum(row) for row in seating_map])                                   # Sum of all 1s in the 2D list
         programmes_map, programmes_purchased = getProgrammeStatus(seating_map, booked_seats, booking_status='partial')
     lineSeparator()
-    print("Booked Seats: ", booked_seats)
-    print("Programmes Purchased: ", programmes_purchased)
     print("Seating Map:")
     displayMap(seating_map)
     lineSeparator()
@@ -88,6 +92,9 @@ def getSeatsStatus(rows=4, columns=5, booking_status='full'):
     return booked_seats, seating_map, programmes_map, programmes_purchased
 
 def printLegend():
+    '''
+    Prints the legend for the revenue report.
+    '''
     print("WITHOUT PROGRAMMES\t||\tWITH PROGRAMMES")
     lineSeparator()
 
@@ -95,17 +102,13 @@ def getRevenue(seating_map, programmes_map, price_seat_A, price_seat_B, programm
     '''
     Returns the revenue generated from the booked seats.
     '''
-    total_revenue_no_prog = 0
-    total_revenue_prog = 0
-    revenue_seat_a_no_prog = 0
-    revenue_seat_a_prog = 0
-    revenue_seat_b_no_prog = 0
-    revenue_seat_b_prog = 0
+    revenue_seat_a_no_prog = revenue_seat_a_prog = 0
+    revenue_seat_b_no_prog = revenue_seat_b_prog = 0
+    seats_a_sold = seats_b_sold = 0
+    row_revenue_no_prog = [0] * ROWS
+    row_revenue_prog = [0] * ROWS
     programme_revenue = 0
-    seats_a_sold = 0
-    seats_b_sold = 0
-    row_revenue_no_prog = [0, 0, 0, 0]
-    row_revenue_prog = [0, 0, 0, 0]
+
     for i in range(len(seating_map)):
         if i < 2:
             row_revenue_no_prog[i] = sum(seating_map[i]) * price_seat_A
@@ -127,6 +130,7 @@ def getRevenue(seating_map, programmes_map, price_seat_A, price_seat_B, programm
     printCenteredText("REVENUE REPORT")
     lineSeparator()
     printCenteredText("SEATS SOLD")
+    printCenteredText("TOTAL SEATS SOLD: " + str(seats_a_sold + seats_b_sold))
     printLegend()
     print("SEATS A:", seats_a_sold, "\t\t||\tSEATS B:", seats_b_sold)
     lineSeparator()
@@ -141,7 +145,8 @@ def getRevenue(seating_map, programmes_map, price_seat_A, price_seat_B, programm
         print("Row", i+1, ":", row_revenue_no_prog[i], "\t\t||\t", row_revenue_prog[i])
     lineSeparator()
     printCenteredText("PROGRAMME REVENUE")
-    print("Programme Revenue: ", programme_revenue)
+    printCenteredText("Total Programmes Purchased: " + str(programmes_purchased))
+    printCenteredText("Total Programme Revenue: " + str(programme_revenue))
     lineSeparator()
     printCenteredText("TOTAL REVENUE")
     printLegend()

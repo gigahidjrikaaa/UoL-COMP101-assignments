@@ -7,6 +7,7 @@ PROGRAMME_COST = 10
 ROWS = 4
 COLUMNS = 5
 
+# Utility Functions
 def lineSeparator(length=50):
     '''
     Prints a line separator.
@@ -26,6 +27,21 @@ def printTitle(title, length=50):
     lineSeparator()
     printCenteredText(title, length)
 
+def printLegend():
+    '''
+    Prints the legend for the revenue report.
+    '''
+    print("WITHOUT PROGRAMMES\t||\tWITH PROGRAMMES")
+    lineSeparator()
+
+def displayMap(seating_map: list):
+    '''
+    Displays the seating map in a 2D matrix of 1s and 0s.
+    '''
+    for row in seating_map:
+        printCenteredText(str(row) + " = " + str(sum(row)) + " orders")
+    printCenteredText("Total: " + str(sum([sum(row) for row in seating_map])) + str(" orders"))   # Sum of all 1s in the 2D list (shorthand)
+
 def getBreakEvenPoint(production_cost: int, revenue: int):
     '''
     Returns the break-even point in days (rounded up).
@@ -33,6 +49,7 @@ def getBreakEvenPoint(production_cost: int, revenue: int):
     break_even_point = production_cost / revenue   
     return int(-(-break_even_point // 1))   # Rounding UP to the nearest integer
 
+# Business Logic Functions
 def getInputs():
     '''
     Returns the production cost and selling prices for seats at band A and B.
@@ -42,14 +59,6 @@ def getInputs():
     price_seat_B = price_seat_A / 2
     print("*" * 50 + "\n")
     return production_cost, price_seat_A, price_seat_B
-
-def displayMap(seating_map: list):
-    '''
-    Displays the seating map in a 2D matrix of 1s and 0s.
-    '''
-    for row in seating_map:
-        printCenteredText(str(row) + " = " + str(sum(row)) + " orders")
-    printCenteredText("Total: " + str(sum([sum(row) for row in seating_map])) + str(" orders"))   # Sum of all 1s in the 2D list (shorthand)
 
 def getProgrammeStatus(seating_map: list, rows=ROWS, columns=COLUMNS, booking_status='full'):
     '''
@@ -89,13 +98,6 @@ def getSeatsStatus(rows=ROWS, columns=COLUMNS, booking_status='full'):
     displayMap(programmes_map)
     
     return seating_map, programmes_map, programmes_purchased
-
-def printLegend():
-    '''
-    Prints the legend for the revenue report.
-    '''
-    print("WITHOUT PROGRAMMES\t||\tWITH PROGRAMMES")
-    lineSeparator()
 
 def showRevenueReport(seating_map: list, programmes_map: list, price_seat_A, price_seat_B, programmes_purchased, production_cost=0):
     '''

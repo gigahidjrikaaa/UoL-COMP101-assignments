@@ -144,10 +144,12 @@ def showRevenueReport(seating_map: list, programmes_map: list, price_seat_A, pri
     printLegend()
     print("Seat A: £" + str(revenue_seat_a_no_prog), "\t\t||\t£" + str(revenue_seat_a_prog))
     print("Seat B: £" + str(revenue_seat_b_no_prog), "\t\t||\t£" + str(revenue_seat_b_prog))
+    print("TOTAL: £" + str(total_revenue_no_prog) + "\t\t||\t£" + str(total_revenue_prog))
     printTitle("ROW REVENUE")
     printLegend()
     for i in range(len(row_revenue_no_prog)):
         print("Row", str(i+1) + ": £" + str(row_revenue_no_prog[i]), "\t\t||\t£" + str(row_revenue_prog[i]))
+    print("TOTAL: £" + str(sum(row_revenue_no_prog)) + "\t\t||\t£" + str(sum(row_revenue_prog)))
     printTitle("PROGRAMME REVENUE")
     printCenteredText("Programmes Purchased: " + str(programmes_purchased))
     printCenteredText("Programme Revenue: £" + str(programme_revenue))

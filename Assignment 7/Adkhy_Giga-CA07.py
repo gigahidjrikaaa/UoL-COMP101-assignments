@@ -12,7 +12,6 @@ def lineSeparator(length=50):
     Prints a line separator.
     '''
     print("=" * length)
-    return
 
 def printCenteredText(text, length=50):
     '''
@@ -24,9 +23,8 @@ def getBreakEvenPoint(production_cost, revenue):
     '''
     Returns the break-even point for the theatre seating dashboard.
     '''
-    break_even_point = production_cost / revenue
-    rounded_break_even_point = int(-(-break_even_point // 1))   # Rounding UP to the nearest integer
-    return rounded_break_even_point
+    break_even_point = production_cost / revenue   
+    return int(-(-break_even_point // 1))   # Rounding UP to the nearest integer
 
 def getInputs():
     '''
@@ -43,10 +41,9 @@ def displayMap(seating_map):
     Displays the seating map in a 2D matrix.
     '''
     for row in seating_map:
-        print(row)
-    return
+        printCenteredText(str(row))
 
-def getProgrammeStatus(seating_map, booked_seats, rows=4, columns=5, booking_status='full'):
+def getProgrammeStatus(seating_map: list, booked_seats: int, rows=ROWS, columns=COLUMNS, booking_status='full'):
     '''
     Returns the number of extra programmes purchased and the programmes map, represented by 1s and 0s.
     Full booking status uses a random number generator for programmes purchase, while partial booking status uses the seating map.
@@ -57,9 +54,7 @@ def getProgrammeStatus(seating_map, booked_seats, rows=4, columns=5, booking_sta
             row = []
             for i in range(columns):
                 if seating_map[j][i] == 1:
-                    row.append(random.choice([0, 1]))
-            else:
-                row.append(0)
+                    row.append(random.choice([0, 1]))  # Randomly assign 0 or 1 to each seat
             programmes_map.append(row)
         programmes_purchased = sum([sum(row) for row in programmes_map])  # Sum of all 1s in the programmes map
     elif booking_status == 'partial':
@@ -68,7 +63,7 @@ def getProgrammeStatus(seating_map, booked_seats, rows=4, columns=5, booking_sta
     return programmes_map, programmes_purchased
         
 
-def getSeatsStatus(rows=4, columns=5, booking_status='full'):
+def getSeatsStatus(rows=ROWS, columns=COLUMNS, booking_status='full'):
     '''
     Returns the number of booked seats in the theatre and the seating map, represented by 1s and 0s.
     Partially booked seating map uses a random number generator to book seats.
@@ -83,10 +78,10 @@ def getSeatsStatus(rows=4, columns=5, booking_status='full'):
         booked_seats = sum([sum(row) for row in seating_map])                                   # Sum of all 1s in the 2D list
         programmes_map, programmes_purchased = getProgrammeStatus(seating_map, booked_seats, booking_status='partial')
     lineSeparator()
-    print("Seating Map:")
+    printCenteredText("SEATING MAP")
     displayMap(seating_map)
     lineSeparator()
-    print("Programmes Map:")
+    printCenteredText("PROGRAMMES MAP")
     displayMap(programmes_map)
     
     return booked_seats, seating_map, programmes_map, programmes_purchased

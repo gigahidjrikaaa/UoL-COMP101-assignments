@@ -1,5 +1,5 @@
 # Adkhy_Giga Dec2024 CA-07.py
-# Breaking-Even Point for Theatre Seating Dashboard
+# Get inputs from user for production cost and selling prices for seats at band A and B - Generate maps and calculate revenue - Output revenue report
 
 import random
 
@@ -82,6 +82,7 @@ def getSeatsStatus(rows=ROWS, columns=COLUMNS, booking_status='full'):
     elif booking_status == 'partial':
         seating_map = [[random.choice([0, 1]) for i in range(columns)] for j in range(rows)]    # 2D list of 0s and 1s using random number generator                                  # Sum of all 1s in the 2D list
         programmes_map, programmes_purchased = getProgrammeStatus(seating_map, booking_status='partial')
+    
     printTitle("SEATING MAP")
     displayMap(seating_map)
     printTitle("PROGRAMMES MAP")
@@ -100,26 +101,29 @@ def showRevenueReport(seating_map: list, programmes_map: list, price_seat_A, pri
     '''
     Returns the revenue generated from the booked seats.
     '''
+    # Initialize variables
     revenue_seat_a_no_prog = revenue_seat_a_prog = 0
     revenue_seat_b_no_prog = revenue_seat_b_prog = 0
     seats_a_sold = seats_b_sold = 0
     row_revenue_no_prog = row_revenue_prog = [0] * ROWS
     programme_revenue = 0
 
+    # Calculate revenue for each row
     for i in range(len(seating_map)):
-        if i < 2:
-            row_revenue_no_prog[i] = sum(seating_map[i]) * price_seat_A
-            revenue_seat_a_no_prog += row_revenue_no_prog[i]
-            row_revenue_prog[i] = row_revenue_no_prog[i] + sum(programmes_map[i]) * PROGRAMME_COST
+        if i < 2:   # Band A (Rows 1 & 2)
+            row_revenue_no_prog[i] = sum(seating_map[i]) * price_seat_A 
+            revenue_seat_a_no_prog += row_revenue_no_prog[i]    
+            row_revenue_prog[i] = row_revenue_no_prog[i] + sum(programmes_map[i]) * PROGRAMME_COST  
             revenue_seat_a_prog += row_revenue_prog[i]
-            seats_a_sold += sum(seating_map[i])
-        else:
+            seats_a_sold += sum(seating_map[i]) 
+        else:       # Band B (Rows 3 & 4)
             row_revenue_no_prog[i] = sum(seating_map[i]) * price_seat_B
             revenue_seat_b_no_prog += row_revenue_no_prog[i]
             row_revenue_prog[i] = row_revenue_no_prog[i] + sum(programmes_map[i]) * PROGRAMME_COST
             revenue_seat_b_prog += row_revenue_prog[i]
             seats_b_sold += sum(seating_map[i])
 
+    # Calculate total revenue and break-even point
     programme_revenue += programmes_purchased * PROGRAMME_COST
     total_revenue_no_prog = revenue_seat_a_no_prog + revenue_seat_b_no_prog
     total_revenue_prog = revenue_seat_a_prog + revenue_seat_b_prog
